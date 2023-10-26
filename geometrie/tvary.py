@@ -49,3 +49,5 @@ class ctverec:
         
 jednotky().setunit(str(input("jednotka ve které budete zadávat hodnoty\nvýběr(mm, cm, dm, m, km)\n")))
 tvar().setshape(str(input("tvar kderý chceš\nvýběr(ctverec, triangle, rectangle, square)\n")))
+
+asdfghjklertzuierthjk
