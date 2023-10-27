@@ -9,13 +9,15 @@ class jednotky:
         self.__jednotky = j
         if self.__jednotky == "":
             self.__jednotky = "cm"
-            return "unit is not definite(set to default = cm)"
         elif self.__jednotky not in unit:
             self.__jednotky = "cm"
-            return "trhis unit is not an option(set to default = cm)"
+            return f"trhis unit is not an option(set to default = cm)\n{70*'-'}"
         else:
             self.__jednotky = j
-            return "unit set"
+            return f"unit set\n{70*'-'}"
+        
+    def getunit(self):
+        return self.__jednotky
 
 class tvar:
     def __init__(self, t="ctverec"):
@@ -23,14 +25,17 @@ class tvar:
 
     def setshape(self, t="ctverec"):
         self.__tvar = t
-        if self.__tvar == "":
-            self.__tvar = "ctverec"
-            return "shape is not definite"
-        elif self.__tvar not in shape:
-            return "trhis shape is not an option"
+
+        while self.__tvar not in shape:
+            if self.__tvar == "":
+                print(f"shape is not definite\n{70*'-'}")
+                self.__tvar = str(input("tvar kderý chceš\nvýběr(ctverec, triangle, rectangle, square)\n"))
+            elif self.__tvar not in shape:
+                print(f"trhis shape is not an option\n{70*'-'}")
+                self.__tvar = str(input("tvar kderý chceš\nvýběr(ctverec, triangle, rectangle, square)\n"))
         
         if self.__tvar == "ctverec":
-            kocka = ctverec(int(input("déla strany 'a': ")))
+            kocka = ctverec(int(input(f"{70*'-'}\ndéla strany 'a': ")))
             what = str(input("obvod nebo obsah?:"))
             if what == "obvod":
                 kocka.obvod()
@@ -40,6 +45,7 @@ class tvar:
                 return kocka.getobsah()
             else:
                 return "nic"
+        
 
 class ctverec:
     def __init__(self, a=0):
@@ -55,11 +61,12 @@ class ctverec:
         self.__obsah = self.__strana**2
 
     def getobvod(self):
-        return self.__obvod
+        return f"{70*'-'}\nobvod ctverce je: {self.__obvod}{units.getunit()}\n{70*'-'}"
 
     def getobsah(self):
-        return (self.__obsah,"²")
-        
-print(jednotky().setunit(str(input("jednotka ve které budete zadávat hodnoty\nvýběr(mm, cm, dm, m, km)\n"))))
+        return f"{70*'-'}\nobsah ctverce je: {self.__obsah}{units.getunit()}²\n{70*'-'}"
+
+units = jednotky()
+print(units.setunit(str(input("jednotka ve které budete zadávat hodnoty\nvýběr(mm, cm, dm, m, km)\n"))))
 print(tvar().setshape(str(input("tvar kderý chceš\nvýběr(ctverec, triangle, rectangle, square)\n"))))
 
