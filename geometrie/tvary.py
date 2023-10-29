@@ -2,7 +2,7 @@ from math import sqrt
 import math
 
 unit = ["mm", "cm", "dm", "m", "km"]
-shape = ["ctverec", "obdelnik", "trojuhelnik", "kruh", "krychle", "kvadr", "jehlan", "koule", "kuzel", "valec"]
+shape = ["ctverec", "obdelnik", "trojuhelnik", "kruh", "krychle", "kvadr"] # "jehlan", "koule", "kuzel", "valec"
 
 class jednotky:
     def __init__(self, j=""):
