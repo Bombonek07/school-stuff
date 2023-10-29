@@ -10,19 +10,8 @@ class jednotky:
 
     def setunit(self, j=""):
         self.__jednotky = j
+        self.__jednotky = tvar().input(unit, self.__jednotky, "jednotka ve které budeteš zadávat hodnoty\nvýběr:", "unit", "")
 
-        while self.__jednotky not in unit:
-            if self.__jednotky == "":
-                print(f"unit not defined\n{70*'-'}")
-                self.__jednotky = str(input(f"jednotka ve které budeteš zadávat hodnoty\nvýběr({', '.join(unit)}) or 'break'\n"))
-            elif self.__jednotky == "break":
-                exit()
-            elif self.__jednotky not in unit:
-                print(f"trhis unit is not an option\n{70*'-'}")
-                self.__jednotky = str(input(f"jednotka ve které budeteš zadávat hodnoty\nvýběr({', '.join(unit)}) or 'break'\n"))
-        else:
-            return f"unit set\n{70*'-'}"
-        
     def getunit(self):
         return self.__jednotky
 
@@ -30,20 +19,29 @@ class tvar:
     def __init__(self, t=""):
         self.__tvar = t
 
+    def input(self, operace, what, txt, txt2, txt3):
+        self.__operace = operace
+        self.__what = what
+        self.__txt = txt
+        self.__txt2 = txt2
+        self.__txt3 = txt3
+
+        while self.__what not in self.__operace:
+            if self.__what == "":
+                print(f"{self.__txt2} not defined\n{70*'-'}")
+                self.__what = str(input(f"{self.__txt}({', '.join(self.__operace)}{self.__txt3}) or 'break'\n"))
+            elif self.__what == "break":
+                exit()
+            elif self.__what not in self.__operace:
+                print(f"this {self.__txt2} is not an option\n{70*'-'}")
+                self.__what = str(input(f"{self.__txt}({', '.join(self.__operace)}{self.__txt3}) or 'break'\n"))
+        else:
+            print(f"{self.__txt2} set\n{70*'-'}")
+            return self.__what
+
     def setshape(self, t=""):
         self.__tvar = t
-
-        while self.__tvar not in shape:
-            if self.__tvar == "":
-                print(f"shape is not definite\n{70*'-'}")
-                self.__tvar = str(input(f"tvar kderý chceš\nvýběr({', '.join(shape)}) or 'break'\n"))
-            elif self.__tvar == "break":
-                exit()
-            elif self.__tvar not in shape:
-                print(f"trhis shape is not an option\n{70*'-'}")
-                self.__tvar = str(input(f"tvar kderý chceš\nvýběr({', '.join(shape)}) or 'break'\n"))
-        else:
-            print(f"shape set\n{70*'-'}")
+        self.__tvar = tvar().input(shape, self.__tvar, "tvar kderý chceš\nvýběr:", "shape", "")
         
         if self.__tvar == "ctverec":
             operace = ["obvod", "obsah"]
@@ -55,18 +53,7 @@ class tvar:
 
             TVAR = ctverec(a)
             what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
-
-            while what not in operace:
-                if what == "":
-                    print(f"operation not defined\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-                elif what == "break":
-                    exit()
-                elif what not in operace:
-                    print(f"this operation is not an option\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-            else:
-                print(f"operation set\n{70*'-'}")
+            what = tvar().input(operace, what, "výběr operace:", "operation", "")
             
             if what == "obvod":
                 TVAR.obvod()
@@ -87,18 +74,7 @@ class tvar:
 
             TVAR = obdelnik(a, b)
             what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
-
-            while what not in operace:
-                if what == "":
-                    print(f"operation not defined\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-                elif what == "break":
-                    exit()
-                elif what not in operace:
-                    print(f"this operation is not an option\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-            else:
-                print(f"operation set\n{70*'-'}")
+            what = tvar().input(operace, what, "výběr operace:", "operation", "")
 
             if what == "obvod":
                 TVAR.obvod()
@@ -111,18 +87,7 @@ class tvar:
             operace = ["obvod", "obsah", "strana"]
             a, b, c = 0, 0, 0
             what = str(input(f"výběr operace:({', '.join(operace)}(pravoúhlého △)) or 'break'\n"))
-
-            while what not in operace:
-                if what == "":
-                    print(f"operation not defined\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}(pravoúhlého △)) or 'break'\n"))
-                elif what == "break":
-                    exit()
-                elif what not in operace:
-                    print(f"this operation is not an option\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}(pravoúhlého △)) or 'break'\n"))
-            else:
-                print(f"operation set\n{70*'-'}")
+            what = tvar().input(operace, what, "výběr operace:", "operation", "(pravoúhlého △)")
 
             if what == "obvod":
                 a = int(input("délka strany 'a': "))
@@ -175,18 +140,7 @@ class tvar:
 
             TVAR = kruh(r)
             what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
-
-            while what not in operace:
-                if what == "":
-                    print(f"operation not defined\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-                elif what == "break":
-                    exit()
-                elif what not in operace:
-                    print(f"this operation is not an option\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-            else:
-                print(f"operation set\n{70*'-'}")
+            what = tvar().input(operace, what, "výběr operace:", "operation", "")
             
             if what == "obvod":
                 TVAR.obvod()
@@ -205,18 +159,7 @@ class tvar:
 
             TVAR = krychle(a)
             what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
-
-            while what not in operace:
-                if what == "":
-                    print(f"operation not defined\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-                elif what == "break":
-                    exit()
-                elif what not in operace:
-                    print(f"this operation is not an option\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-            else:
-                print(f"operation set\n{70*'-'}")
+            what = tvar().input(operace, what, "výběr operace:", "operation", "")
             
             if what == "plocha":
                 TVAR.plocha()
@@ -239,18 +182,7 @@ class tvar:
 
             TVAR = kvadr(a, b, c)
             what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
-
-            while what not in operace:
-                if what == "":
-                    print(f"operation not defined\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-                elif what == "break":
-                    exit()
-                elif what not in operace:
-                    print(f"this operation is not an option\n{70*'-'}")
-                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
-            else:
-                print(f"operation set\n{70*'-'}")
+            what = tvar().input(operace, what, "výběr operace:", "operation", "")
 
             if what == "plocha":
                 TVAR.plocha()
@@ -408,5 +340,5 @@ class kvadr:
         return f"obsah kvadru je: {self.__obsah}{units.getunit()}³\n{70*'-'}"
 
 units = jednotky()
-print(units.setunit(str(input(f"jednotka ve které budete zadávat hodnoty\nvýběr({', '.join(unit)}) or 'break'\n"))))
-print(tvar().setshape(str(input(f"tvar kderý chceš\nvýběr({', '.join(shape)}) or 'break'\n"))))
+units.setunit(str(input(f"jednotka ve které budete zadávat hodnoty\nvýběr:({', '.join(unit)}) or 'break'\n")))
+print(tvar().setshape(str(input(f"tvar kderý chceš\nvýběr:({', '.join(shape)}) or 'break'\n"))))
