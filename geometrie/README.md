@@ -1,0 +1,1 @@
+python script pro výpočet různých operací pro různé geometrické tvary
