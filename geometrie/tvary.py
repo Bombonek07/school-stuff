@@ -1,4 +1,5 @@
 from math import sqrt
+import math
 
 unit = ["mm", "cm", "dm", "m", "km"]
 shape = ["ctverec", "obdelnik", "trojuhelnik", "kruh", "krychle", "kvadr", "jehlan", "koule", "kuzel", "valec"]
@@ -53,7 +54,7 @@ class tvar:
                 a = int(input("déla strany 'a': "))
 
             TVAR = ctverec(a)
-            what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+            what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
 
             while what not in operace:
                 if what == "":
@@ -85,7 +86,7 @@ class tvar:
                 b = int(input("délka strany 'b': "))
 
             TVAR = obdelnik(a, b)
-            what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+            what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
 
             while what not in operace:
                 if what == "":
@@ -163,7 +164,101 @@ class tvar:
                 TVAR.setside_strana(a, b, c)
                 TVAR.strana()
                 return TVAR.getstrana()
+            
+        if self.__tvar == "kruh":
+            operace = ["obvod", "obsah"]
+            r = int(input("déla průměru 'r': "))
 
+            while r==0:
+                print(f"{70*'-'}\nside can not be a 0\n{70*'-'}")
+                r = int(input("déla průměru 'r': "))
+
+            TVAR = kruh(r)
+            what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
+
+            while what not in operace:
+                if what == "":
+                    print(f"operation not defined\n{70*'-'}")
+                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+                elif what == "break":
+                    exit()
+                elif what not in operace:
+                    print(f"this operation is not an option\n{70*'-'}")
+                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+            else:
+                print(f"operation set\n{70*'-'}")
+            
+            if what == "obvod":
+                TVAR.obvod()
+                return TVAR.getobvod()
+            elif what == "obsah":
+                TVAR.obsah()
+                return TVAR.getobsah()
+
+        if self.__tvar == "krychle":
+            operace = ["plocha", "obsah"]
+            a = int(input("déla strany 'a': "))
+
+            while a==0:
+                print(f"{70*'-'}\nside can not be a 0\n{70*'-'}")
+                a = int(input("déla strany 'a': "))
+
+            TVAR = krychle(a)
+            what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
+
+            while what not in operace:
+                if what == "":
+                    print(f"operation not defined\n{70*'-'}")
+                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+                elif what == "break":
+                    exit()
+                elif what not in operace:
+                    print(f"this operation is not an option\n{70*'-'}")
+                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+            else:
+                print(f"operation set\n{70*'-'}")
+            
+            if what == "plocha":
+                TVAR.plocha()
+                return TVAR.getplocha()
+            elif what == "obsah":
+                TVAR.obsah()
+                return TVAR.getobsah()
+
+        if self.__tvar == "kvadr":
+            operace = ["plocha", "obsah"]
+            a = int(input("délka strany 'a': "))
+            b = int(input("délka strany 'b': "))
+            c = int(input("délka strany 'c': "))
+
+            while a==0 or b==0 or c==0:
+                print(f"{70*'-'}\nside can not be a 0\n{70*'-'}")
+                a = int(input("délka strany 'a': "))
+                b = int(input("délka strany 'b': "))
+                c = int(input("délka strany 'c': "))
+
+            TVAR = kvadr(a, b, c)
+            what = str(input(f"{70*'-'}\nvýběr operace:({', '.join(operace)}) or 'break'\n"))
+
+            while what not in operace:
+                if what == "":
+                    print(f"operation not defined\n{70*'-'}")
+                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+                elif what == "break":
+                    exit()
+                elif what not in operace:
+                    print(f"this operation is not an option\n{70*'-'}")
+                    what = str(input(f"výběr operace:({', '.join(operace)}) or 'break'\n"))
+            else:
+                print(f"operation set\n{70*'-'}")
+
+            if what == "plocha":
+                TVAR.plocha()
+                return TVAR.getplocha()
+            elif what == "obsah":
+                TVAR.obsah()
+                return TVAR.getobsah()
+            
 class ctverec:
     def __init__(self, a=0):
         self.__strana = a
@@ -172,10 +267,10 @@ class ctverec:
         self.__strana = a
     
     def obvod(self):
-        self.__obvod = self.__strana*4
+        self.__obvod = round(self.__strana*4, 3)
 
     def obsah(self):
-        self.__obsah = self.__strana**2
+        self.__obsah = round(self.__strana**2, 3)
 
     def getobvod(self):
         return f"obvod ctverce je: {self.__obvod}{units.getunit()}\n{70*'-'}"
@@ -193,10 +288,10 @@ class obdelnik:
         self.__strana_b = b
     
     def obvod(self):
-        self.__obvod = (self.__strana_a*2)+(self.__strana_b*2)
+        self.__obvod = round((self.__strana_a*2)+(self.__strana_b*2), 3)
 
     def obsah(self):
-        self.__obsah = self.__strana_a*self.__strana_b
+        self.__obsah = round(self.__strana_a*self.__strana_b, 3)
 
     def getobvod(self):
         return f"obvod obdelniku je: {self.__obvod}{units.getunit()}\n{70*'-'}"
@@ -226,10 +321,10 @@ class trojuhelnik:
         self.__strana_c = c
         
     def obvod(self):
-        self.__obvod = self.__strana_a+self.__strana_b+self.__strana_c
+        self.__obvod = round(self.__strana_a+self.__strana_b+self.__strana_c, 3)
 
     def obsah(self):
-        self.__obsah = 0.5*self.__strana_a*self.__vyska
+        self.__obsah = round(0.5*self.__strana_a*self.__vyska, 3)
 
     def strana(self):
         if self.__strana_a == 0:
@@ -250,6 +345,67 @@ class trojuhelnik:
     
     def getstrana(self):
         return f"{70*'-'}\ndélka {self.__abc}: {self.__strana}{units.getunit()}\n{70*'-'}"
+
+class kruh:
+    def __init__(self, r=0):
+        self.__polomer = r
+
+    def setpolomer(self, r=0):
+        self.__polomer = r
+    
+    def obvod(self):
+        self.__obvod = round(self.__polomer*2*math.pi, 3)
+
+    def obsah(self):
+        self.__obsah = round(math.pi*(self.__polomer**2), 3)
+
+    def getobvod(self):
+        return f"obvod kruhu je: {self.__obvod}{units.getunit()}\n{70*'-'}"
+
+    def getobsah(self):
+        return f"obsah kruhu je: {self.__obsah}{units.getunit()}²\n{70*'-'}"
+    
+class krychle:
+    def __init__(self, a=0):
+        self.__strana = a
+
+    def setside(self, a=0):
+        self.__strana = a
+    
+    def plocha(self):
+        self.__plocha = round(6*(self.__strana**2), 3)
+
+    def obsah(self):
+        self.__obsah = round(self.__strana**3, 3)
+
+    def getplocha(self):
+        return f"plocha krychle je: {self.__plocha}{units.getunit()}²\n{70*'-'}"
+
+    def getobsah(self):
+        return f"obsah krychle je: {self.__obsah}{units.getunit()}³\n{70*'-'}"
+    
+class kvadr:
+    def __init__(self, a=0, b=0, c=0):
+        self.__strana_a = a
+        self.__strana_b = b
+        self.__strana_c = c
+
+    def setside(self, a=0, b=0, c=0):
+        self.__strana_a = a
+        self.__strana_b = b
+        self.__strana_c = c
+    
+    def plocha(self):
+        self.__plocha = round(((self.__strana_a*self.__strana_b)*2)+((self.__strana_a*self.__strana_c)*2)+((self.__strana_b*self.__strana_c)*2), 3)
+
+    def obsah(self):
+        self.__obsah = round(self.__strana_a*self.__strana_b*self.__strana_c, 3)
+
+    def getplocha(self):
+        return f"plocha kvadru je: {self.__plocha}{units.getunit()}²\n{70*'-'}"
+
+    def getobsah(self):
+        return f"obsah kvadru je: {self.__obsah}{units.getunit()}³\n{70*'-'}"
 
 units = jednotky()
 print(units.setunit(str(input(f"jednotka ve které budete zadávat hodnoty\nvýběr({', '.join(unit)}) or 'break'\n"))))
