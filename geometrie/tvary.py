@@ -106,7 +106,7 @@ class tvar:
             elif what == "obsah":
                 a = int(input("délka základny 'a': "))
                 v = int(input("délka výšky    'v': "))
-                while a==0 or b==0:
+                while a==0 or v==0:
                     print(f"{70*'-'}\ncan not be a 0\n{70*'-'}")
                     a = int(input("délka základny 'a': "))
                     v = int(input("délka výšky    'v': "))
