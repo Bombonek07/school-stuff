@@ -5,18 +5,19 @@ import math
 
 class Snowflake:
     def __init__(self, x, y, game):
+        self.vlocka = ["animace/snowflake.png", "animace/snowflake1.png"]
         self.x = x
         self.y = y
         self.game = game
-        self.size = random.randint(10, 60)
-        self.random = random.randint(1, 200)
-        self.img = pygame.image.load("animace/snowflake.png")
+        self.size = random.randint(5, 60)
+        self.random = random.randint(1, 500)
+        self.img = pygame.image.load(random.choice(self.vlocka))
         if self.random == 1:
             self.size = 300
-            self.img = pygame.image.load("animace/snowflake1.png")
+            self.img = pygame.image.load(random.choice(self.vlocka))
         elif self.random == 2:
             self.size = 200
-            self.img = pygame.image.load("animace/snowflake1.png")
+            self.img = pygame.image.load(random.choice(self.vlocka))
         self.wind = random.randint(-1, 1)
         if self.size < 30:
             self.img = pygame.image.load("animace/snowflake_blor.png")
@@ -41,7 +42,7 @@ class Snowflake:
             self.y = -200
             self.x = random.randint(-200, self.game.width+200)
             self.deg = random.randint(0, 90)
-            self.wind = random.randint(-3, 1)
+            self.wind = random.randint(-1, 1)
 
     def draw(self):
         self.game.screen.blit(self.rotate_img, (self.x, self.y))
@@ -51,7 +52,6 @@ class game:
         pygame.init()
         self.width, self.height = 1920, 1080
         self.snowflakes_amount = 250
-        self.img = pygame.image.load("animace/snowflake.png")
         self.snowflakes = self.make_snowflakes()
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("Snowfall Screensaver"), (1,1)
